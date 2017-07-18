@@ -2,16 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import menu from '../../menu';
 
+
+import Chat from './ChatBot';
+import Image from './Image';
+
 require('./Home.css');
 
 const Home = (props) => {
-  const { title, description, docsLink, github } = menu;
+  const {title, description, docsLink, github} = menu;
   const githubUrl = `https://ghbtns.com/github-btn.html?user=${github.user}&repo=${github.repository}`;
+  // console.log(props);
   return (
     <div className="home">
       <h1 className="title">{title}</h1>
       <p className="description">{description}</p>
-      <div className="buttons">
+      {/* <div className="buttons">
         <iframe
           src={`${githubUrl}&type=star&count=true&size=large`}
           frameBorder="0"
@@ -26,22 +31,20 @@ const Home = (props) => {
           width="158px"
           height="30px"
         />
-      </div>
+      </div> */}
       <p className="documentation">
-        <a
-          className="docs-button"
-          onClick={() => props.handleLink(docsLink)}
-        >
-          <i className="fa fa-book" />
+        <a className="docs-button" onClick={() => props.handleLink(docsLink)}>
+          <i className="fa fa-book"/>
           Documentation
         </a>
       </p>
+      <Chat/>
     </div>
   );
 };
 
 Home.propTypes = {
-  handleLink: PropTypes.func.isRequired,
+  handleLink: PropTypes.func.isRequired
 };
 
 export default Home;
