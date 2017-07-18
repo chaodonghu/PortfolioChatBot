@@ -6,6 +6,7 @@ const $ = require('jquery')
 export default class AboutRoute extends Component {
   constructor (props) {
     super(props)
+    console.log(props)
 
     this.state = {
       loading: true,
@@ -15,6 +16,14 @@ export default class AboutRoute extends Component {
 
   this.handleLink = this.handleLink.bind(this)
   }
+
+  closeChatBot({ opened }) {
+  if (this.props.toggleFloating) {
+    this.props.toggleFloating({ opened });
+  } else {
+    this.setState({ opened });
+  }
+}
 
   handleLink(event) {
     if (this.handleLink) {

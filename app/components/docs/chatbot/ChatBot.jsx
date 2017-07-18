@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { ThemeProvider } from 'styled-components';
 import ChatBot from 'react-simple-chatbot';
-import Image from './Image';
+import NoTour from './NoTour';
 // import PropTypes from 'prop-types';
 
 // chatbot components
-// import AboutRoute from '../../components/redirect/AboutRoute'
+import AboutRoute from '../redirect/AboutRoute'
 
 // all available props
 
 
-class Chat extends Component {
+class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,8 +46,7 @@ class Chat extends Component {
             },
             {
               id: 'no-tour',
-              component: <Image/>,
-              // avatar: 'http://resizeimage.net/mypic/4eVx9R0aLfuBm5Bx/L6ktQ/aaeaaqaaaaaaaaojaaaajdbkndlizj.jpg',
+              component: <NoTour/>,
               asMessage: true,
               trigger: 'menu',
             },
@@ -61,6 +60,30 @@ class Chat extends Component {
               options: [
                 { value: 'nil', label: 'Take the tour', trigger: 'tour' },
                 { value: '/aboutme', label: 'Who am I?', trigger: 'aboutme' },
+                // { value: '/causes', label: 'Causes', trigger: 'causes' },
+                // { value: '/portfolio/project4', label: 'Portfolio', trigger: 'portfolio' },
+                // { value: '/skills', label: 'Skills', trigger: 'skills' },
+                // { value: '/contact', label: 'Contact', trigger: 'contact' },
+                // { value: 'end', label: 'End', trigger: 'end' }
+              ]
+            },
+            {
+              id: 'aboutme',
+              component: <AboutRoute />,
+              waitAction: true,
+              replace: true,
+              asMessage: false,
+              trigger: 'aboutme-2'
+            },
+            {
+              id: 'aboutme-2',
+              message: 'I\'ll let you discover, come back when you\'re done!',
+              trigger: 'about-me-3'
+            },
+            {
+              id: 'aboutme-3',
+              options: [
+                { value: '/about', label: 'Story', trigger: 'story' },
                 { value: '/causes', label: 'Causes', trigger: 'causes' },
                 { value: '/portfolio/project4', label: 'Portfolio', trigger: 'portfolio' },
                 { value: '/skills', label: 'Skills', trigger: 'skills' },
@@ -68,14 +91,6 @@ class Chat extends Component {
                 { value: 'end', label: 'End', trigger: 'end' }
               ]
             },
-            // {
-            //   id: 'aboutme',
-            //   // component: <AboutRoute />,
-            //   waitAction: true,
-            //   replace: true,
-            //   asMessage: false,
-            //   end: true,
-            // },
       ],
       theme: {
         background: '#f5f8fb',
@@ -87,18 +102,18 @@ class Chat extends Component {
         userBubbleColor: '#fff',
         userFontColor: '#4a4a4a',
       },
-      botAvatar: 'icon.png',
+      botAvatar: 'icon.png', // TODO: Have to resize botAvatar
       headerTitle: '',
     }
     this.toggleFloating = this.toggleFloating.bind(this);
   }
 
   toggleFloating({ opened }) {
-    this.setState({ opened })
+    this.setState({ opened });
   }
 
   render() {
-    const { botAvatar, botDelay, opened, steps, theme, toggleFloating, headerTitle} = this.state;
+    const { botAvatar, botDelay, opened, steps, theme, toggleFloating, headerTitle, floating} = this.state;
     console.log(this.state);
     return (
       <ThemeProvider theme={theme}>

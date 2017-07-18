@@ -4,7 +4,7 @@ import Header from './layout/Header';
 import Sidebar from './layout/Sidebar';
 import menu from '../../menu';
 
-import ChatBot from './chatbot/ChatBot'
+import Chat from './chatbot/ChatBot'
 
 require('./Docs.css');
 
@@ -31,7 +31,7 @@ const Docs = (props) => {
                 description={link.description}
               />
               { link.component }
-              <ChatBot/>
+              <Chat/>
             </div>
           ) : (
             <Header
