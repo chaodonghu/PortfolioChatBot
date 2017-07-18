@@ -109,15 +109,16 @@ class Chat extends React.Component {
   }
 
   toggleFloating({ opened }) {
+    console.log('toggleFloating')
     this.setState({ opened });
   }
 
   render() {
-    const { botAvatar, botDelay, opened, steps, theme, toggleFloating, headerTitle, floating} = this.state;
-    console.log(this.state);
+    const { botAvatar, botDelay, opened, steps, theme, headerTitle, floating } = this.state;
+    // console.log(this);
     return (
       <ThemeProvider theme={theme}>
-        <ChatBot headerTitle={headerTitle} botAvatar={botAvatar} botDelay={botDelay} steps={steps} floating={true} opened={opened} toggleFloating={toggleFloating}/>
+        <ChatBot headerTitle={headerTitle} botAvatar={botAvatar} botDelay={botDelay} steps={steps} floating={true} opened={opened} toggleFloating={this.toggleFloating}/>
       </ThemeProvider>
     );
   }
