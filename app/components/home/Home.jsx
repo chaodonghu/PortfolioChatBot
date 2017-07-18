@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import menu from '../../menu';
 
 
-import Chat from './ChatBot';
-import Image from './Image';
+// import Chat from './ChatBot';
+// import Image from './Image';
 
 require('./Home.css');
 
@@ -38,7 +38,7 @@ const Home = (props) => {
           Documentation
         </a>
       </p>
-      <Chat/>
+      {/* <Chat/> */}
     </div>
   );
 };

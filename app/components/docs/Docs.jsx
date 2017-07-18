@@ -4,6 +4,8 @@ import Header from './layout/Header';
 import Sidebar from './layout/Sidebar';
 import menu from '../../menu';
 
+import ChatBot from './chatbot/ChatBot'
+
 require('./Docs.css');
 
 const routes = [];
@@ -19,7 +21,7 @@ const Docs = (props) => {
 
   return (
     <div className="docs">
-      <Sidebar handleLink={props.handleLink} />
+      <Sidebar handleLink={props.handleLink} float={props.opened}/>
       <main>
         {
           link ? (
@@ -29,6 +31,7 @@ const Docs = (props) => {
                 description={link.description}
               />
               { link.component }
+              <ChatBot/>
             </div>
           ) : (
             <Header
