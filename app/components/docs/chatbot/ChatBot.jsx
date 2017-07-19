@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { ThemeProvider } from 'styled-components';
 import ChatBot from 'react-simple-chatbot';
-import NoTour from './NoTour';
+
 // import PropTypes from 'prop-types';
 
-// chatbot components
+// chatbot static components
+import NoTour from './NoTour';
+import NoImGood from './NoImGood';
+import End from './End';
+import Wasteman from './Wasteman';
+
+
 import AboutRoute from '../redirect/AboutRoute'
 
+import TourAbout from '../redirect/TourAbout'
 // all available props
 
 
@@ -19,7 +26,7 @@ class Chat extends React.Component {
       steps: [
             {
               id: '1',
-              message: 'Welcome to my about me page. What is your name?',
+              message: 'Hi Dong here. Welcome to my about me page. What is your name?',
               trigger: '2',
             },
             {
@@ -46,21 +53,21 @@ class Chat extends React.Component {
             },
             {
               id: 'no-tour',
-              component: <NoTour/>,
+              component: <NoTour />,
               asMessage: true,
               trigger: 'menu',
             },
             {
               id: 'menu',
-              message: 'What would you like to learn more about me?',
+              message: 'Is there something you would you like to learn more about me then?',
               trigger: 'menuInput',
             },
             {
               id: 'menuInput',
               options: [
-                { value: 'nil', label: 'Take the tour', trigger: 'tour' },
-                { value: '/aboutme', label: 'Who am I?', trigger: 'aboutme' },
-                // { value: '/causes', label: 'Causes', trigger: 'causes' },
+                { value: '/tour', label: 'I misclicked, i\'ll take the tour', trigger: 'tour' },
+                { value: '/aboutme', label: 'Who are you?', trigger: 'aboutme' },
+                { value: '/no', label: 'Nothing, I\'m good', trigger: 'noimgood' },
                 // { value: '/portfolio/project4', label: 'Portfolio', trigger: 'portfolio' },
                 // { value: '/skills', label: 'Skills', trigger: 'skills' },
                 // { value: '/contact', label: 'Contact', trigger: 'contact' },
@@ -68,12 +75,49 @@ class Chat extends React.Component {
               ]
             },
             {
-              id: 'aboutme',
-              component: <AboutRoute />,
-              waitAction: true,
-              replace: true,
-              asMessage: false,
-              trigger: 'aboutme-2'
+              id: 'noimgood',
+              component: <NoImGood />,
+              asMessage: true,
+              trigger: 'noimgood-2'
+            },
+            {
+              id: 'noimgood-2',
+              message: 'Bruh',
+              trigger: 'noimgood-3'
+            },
+            {
+              id: 'noimgood-3',
+              message: 'So then what brings you here?',
+              trigger: 'noimgood-4'
+            },
+            {
+              id: 'noimgood-4',
+              options: [
+                { value: '/dontknow', label: 'I don\'t know', trigger: 'idontknow' },
+                { value: '/talktoyou', label: 'Because I just want to talk to you', trigger: 'aboutme' },
+                { value: '/end', label: 'That\'s a personal question fam', trigger: 'end' },
+              ]
+            },
+            {
+              id: 'end',
+              component: <End />,
+              asMessage: true,
+              trigger: 'end-2'
+            },
+            {
+              id: 'end-2',
+              message: 'You\'re a wasteman anyways',
+              trigger: 'end-3'
+            },
+            {
+              id: 'end-3',
+              message: 'Oh here\'s a definition if you\'re not a Toronto man',
+              trigger: 'end-4'
+            },
+            {
+              id: 'end-4',
+              component: <Wasteman />,
+              trigger: 'end-5'
             },
             {
               id: 'aboutme-2',
@@ -91,6 +135,66 @@ class Chat extends React.Component {
                 { value: 'end', label: 'End', trigger: 'end' }
               ]
             },
+            {
+              id: 'tour',
+              message: 'Don\'t worry mistakes happen',
+              trigger: 'tour-1'
+            },
+            {
+              id: 'tour-1',
+              component: <TourAbout />,
+              waitAction: true,
+              replace: true,
+              asMessage: false,
+              trigger: 'tour1'
+            },
+            {
+                    id: 'tour1',
+                    message: 'So this is my story of how I came to be a web developer',
+                    trigger: 'tour2'
+                  },
+                  {
+                    id: 'tour2',
+                    message: 'I was a geek working on some hardware...',
+                    trigger: 'tour3'
+                  },
+                  {
+                    id: 'tour3',
+                    message: 'trying to get these things to connect to the web aka the Internet of Things',
+                    trigger: 'tour4'
+                  },
+                  {
+                    id: 'tour4',
+                    message: 'and I realised that there was a lot more I could do with it, like...',
+                    trigger: 'tour5'
+                  },
+                  {
+                    id: 'tour5',
+                    message: 'using natural language processing to give commands to my bot slaves...',
+                    trigger: 'tour6'
+                  },
+                  {
+                    id: 'tour6',
+                    message: 'or using a food image recognition algorithm to identify hot dogs',
+                    trigger: 'tour7'
+                  },
+                  {
+                    id: 'tour7',
+                    message: 'the possibilities were endless, so I decided to quit my dream job and sign up for the GA immersive.',
+                    trigger: 'tour-about-last'
+                  },
+                  {
+                    id: 'tour-about-last',
+                    message: 'You can read more here. Do tell me when to continue',
+                    trigger: 'tour-about-ans'
+                  },
+                  {
+                    id: 'tour-about-ans',
+                    options: [
+                                        { value: 'yes', label: 'Ramble on', trigger: 'tour-causes-1' },
+                                        { value: 'no', label: 'Stop', trigger: 'menu' }
+                    ]
+                  },
       ],
       theme: {
         background: '#f5f8fb',
@@ -102,7 +206,7 @@ class Chat extends React.Component {
         userBubbleColor: '#fff',
         userFontColor: '#4a4a4a',
       },
-      botAvatar: 'icon.png', // TODO: Have to resize botAvatar
+      botAvatar: '/images/icon.png', // TODO: Have to resize botAvatar
       headerTitle: '',
     }
     this.toggleFloating = this.toggleFloating.bind(this);

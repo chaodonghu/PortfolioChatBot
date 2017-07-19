@@ -4,17 +4,17 @@ import ChatBot from 'react-simple-chatbot';
 
 require('./ChatBot.css');
 
-class NoTour extends React.Component {
+class End extends React.Component {
   constructor(props) {
     super(props);
   }
     render() {
       return (
         <div>
-          <img src={'/images/saitama.png'} className='rsc-ts-image sc-gzVnrw hLGSaN' style={{width: '130px', height: '100px'}}/>
+          <img src={'/images/drake_areyoudumb.gif'} className='rsc-ts-image sc-gzVnrw hLGSaN' style={{width: '180px', height: '120px'}}/>
         </div>
       );
     }
   }
 
-export default NoTour;
+export default End;
