@@ -15,6 +15,7 @@ for (let i = 0, len = menu.sections.length; i < len; i += 1) {
     routes[link.href] = link;
   }
 }
+console.log(routes)
 
 const Docs = (props) => {
   const link = routes[props.link];
@@ -31,7 +32,6 @@ const Docs = (props) => {
                 description={link.description}
               />
               { link.component }
-              <Chat/>
             </div>
           ) : (
             <Header
@@ -41,6 +41,7 @@ const Docs = (props) => {
           )
         }
       </main>
+      <Chat handleLink={props.handleLink}/>
     </div>
   );
 };
