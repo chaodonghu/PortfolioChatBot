@@ -1,53 +1,23 @@
 import React, { Component } from 'react';
-import { ThemeProvider } from 'styled-components';
-import ChatBot from 'react-simple-chatbot';
 import PropTypes from 'prop-types';
 
-// chatbot static components
+// Import Chatbot
+import { ThemeProvider } from 'styled-components';
+import ChatBot from 'react-simple-chatbot';
+
+// Chatbot static components
 import NoTour from './NoTour';
 import NoImGood from './NoImGood';
 import End from './End';
 import Wasteman from './Wasteman';
 
-// redirect routes
-// import TourAbout from '../redirect/TourAbout'
-
-class LinkHandler extends Component {
-  componentWillMount() {
-    const { steps, triggerNextStep } = this.props;
-    console.log('props', this.props)
-
-    const link = steps.option.value;
-    console.log('link', link)
-    this.props.handleLink(link);
-    document.querySelector('.chat .rsc-header a').click();
-    document.querySelector(`.sub-links a[data-href="${link}"]`).click();
-    document.body.scrollTop = 0;
-
-    setTimeout(() => {
-      triggerNextStep();
-    }, 500);
-  }
-
-  render() {
-    return <span />;
-  }
-}
-
-LinkHandler.propTypes = {
-  steps: PropTypes.object,
-  triggerNextStep: PropTypes.func,
-  handleLink: PropTypes.func.isRequired,
-};
-
-LinkHandler.defaultProps = {
-  steps: undefined,
-  triggerNextStep: undefined,
-};
+// Redirect Handlers
+import AboutRoute from '../redirectHandlers/AboutRoute'
 
 class Chat extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       botDelay: 1000,
       opened: true,
@@ -55,7 +25,7 @@ class Chat extends Component {
       steps: [
             {
               id: '1',
-              message: 'Hi Dong here. Welcome to my about me page. What is your name?',
+              message: 'Hi my name is Dong. Welcome to my about me page. What is your name?',
               trigger: '2',
             },
             {
@@ -71,19 +41,20 @@ class Chat extends Component {
             {
               id: '4',
               message: 'Would you like me to give you a tour?',
-              trigger: 'option',
+              trigger: 'touroptions',
             },
             {
-              id: 'option',
+              id: 'touroptions',
               options: [
                 { value: 1, label: 'Of course!', trigger: 'tour' },
                 { value: 2, label: 'No.', trigger: 'no-tour' },
-                { value: '/docs/installation', label: 'Redirect testing installation.', trigger: 'option-selected' },
+                { value: '/docs/installation', label: 'Redirect testing installation.', trigger: 'tour-option-selected' },
+                { value: '/docs/example1', label: 'Redirect testing example1.', trigger: 'tour-option-selected' },
               ],
             },
             {
-              id: 'option-selected',
-              message: 'Please let me direct you',
+              id: 'tour-option-selected',
+              message: 'One moment while I redirect you',
               trigger: 'result',
             },
             {
@@ -95,99 +66,103 @@ class Chat extends Component {
               id: 'result',
               replace: true,
               component: (
-                <LinkHandler handleLink={this.props.handleLink}/>
+                <AboutRoute handleLink={this.props.handleLink}/>
               ),
-              trigger: 'finish-question',
             },
-            // {
-            //   id: 'no-tour',
-            //   component: <NoTour />,
-            //   asMessage: true,
-            //   trigger: 'menu',
-            // },
-            // {
-            //   id: 'menu',
-            //   message: 'Is there something you would you like to learn more about me then?',
-            //   trigger: 'menuInput',
-            // },
-            // {
-            //   id: 'menuInput',
-            //   options: [
-            //     { value: '/tour', label: 'I misclicked, i\'ll take the tour', trigger: 'tour' },
-            //     { value: '/aboutme', label: 'Who are you?', trigger: 'aboutme' },
-            //     { value: '/no', label: 'Nothing, I\'m good', trigger: 'noimgood' },
-            //     // { value: '/portfolio/project4', label: 'Portfolio', trigger: 'portfolio' },
-            //     // { value: '/skills', label: 'Skills', trigger: 'skills' },
-            //     // { value: '/contact', label: 'Contact', trigger: 'contact' },
-            //     // { value: 'end', label: 'End', trigger: 'end' }
-            //   ]
-            // },
-            // {
-            //   id: 'noimgood',
-            //   component: <NoImGood />,
-            //   asMessage: true,
-            //   trigger: 'noimgood-2'
-            // },
-            // {
-            //   id: 'noimgood-2',
-            //   message: 'Bruh',
-            //   trigger: 'noimgood-3'
-            // },
-            // {
-            //   id: 'noimgood-3',
-            //   message: 'So then what brings you here?',
-            //   trigger: 'noimgood-4'
-            // },
-            // {
-            //   id: 'noimgood-4',
-            //   options: [
-            //     { value: '/dontknow', label: 'I don\'t know', trigger: 'idontknow' },
-            //     { value: '/talktoyou', label: 'Because I just want to talk to you', trigger: 'aboutme' },
-            //     { value: '/end', label: 'That\'s a personal question fam', trigger: 'end' },
-            //   ]
-            // },
-            // {
-            //   id: 'end',
-            //   component: <End />,
-            //   asMessage: true,
-            //   trigger: 'end-2'
-            // },
-            // {
-            //   id: 'end-2',
-            //   message: 'You\'re a wasteman anyways',
-            //   trigger: 'end-3'
-            // },
-            // {
-            //   id: 'end-3',
-            //   message: 'Oh here\'s a definition if you\'re not a Toronto man',
-            //   trigger: 'end-4'
-            // },
-            // {
-            //   id: 'end-4',
-            //   component: <Wasteman />,
-            //   trigger: 'end-5'
-            // },
-            // {
-            //   id: 'aboutme-2',
-            //   message: 'I\'ll let you discover, come back when you\'re done!',
-            //   trigger: 'about-me-3'
-            // },
-            // {
-            //   id: 'aboutme-3',
-            //   options: [
-            //     { value: '/about', label: 'Story', trigger: 'story' },
-            //     { value: '/causes', label: 'Causes', trigger: 'causes' },
-            //     { value: '/portfolio/project4', label: 'Portfolio', trigger: 'portfolio' },
-            //     { value: '/skills', label: 'Skills', trigger: 'skills' },
-            //     { value: '/contact', label: 'Contact', trigger: 'contact' },
-            //     { value: 'end', label: 'End', trigger: 'end' }
-            //   ]
-            // },
-            // {
-            //   id: 'tour',
-            //   message: 'Don\'t worry mistakes happen',
-            //   trigger: 'tour-1'
-            // },
+            {
+              id: 'no-tour',
+              component: <NoTour />,
+              asMessage: true,
+              trigger: 'no-tour-1',
+            },
+            {
+              id: 'no-tour-1',
+              message: 'Is there something you would you like to learn more about me then?',
+              trigger: 'no-tour-2-options',
+            },
+            {
+              id: 'no-tour-2-options',
+              options: [
+                { value: '/tour', label: 'I misclicked, i\'ll take the tour', trigger: 'tour' },
+                { value: '/aboutme', label: 'Who are you?', trigger: 'aboutme' },
+                { value: '/no', label: 'Nothing, I\'m good', trigger: 'noimgood' },
+                // { value: '/portfolio/project4', label: 'Portfolio', trigger: 'portfolio' },
+                // { value: '/skills', label: 'Skills', trigger: 'skills' },
+                // { value: '/contact', label: 'Contact', trigger: 'contact' },
+                // { value: 'end', label: 'End', trigger: 'end' }
+              ]
+            },
+            {
+              id: 'noimgood',
+              component: <NoImGood />,
+              asMessage: true,
+              trigger: 'noimgood-2'
+            },
+            {
+              id: 'noimgood-2',
+              message: 'Bruh',
+              trigger: 'noimgood-3'
+            },
+            {
+              id: 'noimgood-3',
+              message: 'So then what brings you here?',
+              trigger: 'noimgood-4-options'
+            },
+            {
+              id: 'noimgood-4-options',
+              options: [
+                { value: '/dontknow', label: 'I don\'t know honestly.', trigger: 'idontknow' },
+                { value: '/talktoyou', label: 'Because I just want to talk to you.', trigger: 'aboutme' },
+                { value: '/end', label: 'That\'s a personal question.', trigger: 'end' },
+              ]
+            },
+            {
+              id: 'end',
+              component: <End />,
+              asMessage: true,
+              trigger: 'end-2'
+            },
+            {
+              id: 'end-2',
+              message: 'Yeah eh?',
+              trigger: 'end-3'
+            },
+            {
+              id: 'end-3',
+              message: 'You\'re a wasteman anyways',
+              trigger: 'end-4'
+            },
+            {
+              id: 'end-4',
+              message: 'I\'ll let you navigate my portfolio by yourself then',
+              trigger: 'finish'
+            },
+            {
+              id: 'finish',
+              message: 'Deuce.',
+              end: true,
+            },
+            {
+              id: 'aboutme-2',
+              message: 'I\'ll let you discover, come back when you\'re done!',
+              trigger: 'about-me-3'
+            },
+            {
+              id: 'aboutme-3',
+              options: [
+                { value: '/about', label: 'Story', trigger: 'story' },
+                { value: '/causes', label: 'Causes', trigger: 'causes' },
+                { value: '/portfolio/project4', label: 'Portfolio', trigger: 'portfolio' },
+                { value: '/skills', label: 'Skills', trigger: 'skills' },
+                { value: '/contact', label: 'Contact', trigger: 'contact' },
+                { value: 'end', label: 'End', trigger: 'end' }
+              ]
+            },
+            {
+              id: 'tour',
+              message: 'Don\'t worry mistakes happen',
+              trigger: 'tour-1'
+            },
             // {
             //   id: 'tour-1',
             //   component: <TourAbout />,
@@ -257,6 +232,7 @@ class Chat extends Component {
       headerTitle: '',
     }
     this.toggleFloating = this.toggleFloating.bind(this);
+    this.handleEnd = this.handleEnd.bind(this);
   }
 
   toggleFloating({ opened }) {
@@ -264,9 +240,22 @@ class Chat extends Component {
     this.setState({ opened });
   }
 
+
+  handleEnd() {
+    setTimeout(() => {
+      document.querySelector('.chat .rsc-header a').click();
+
+      setTimeout(() => {
+        this.setState({ loading: true }, () => {
+          this.setState({ loading: false });
+        });
+      }, 500);
+    }, 2000);
+  }
+
   render() {
     const { botAvatar, botDelay, opened, steps, theme, headerTitle, floating, loading } = this.state;
-    const mobile = window.innerWidth < 568;
+    // const mobile = window.innerWidth < 568;
     // const TriggerMobile =
     // console.log(this);
 
@@ -276,7 +265,7 @@ class Chat extends Component {
 
     return (
       <ThemeProvider theme={theme}>
-        <ChatBot className='chat' headerTitle={headerTitle} botAvatar={botAvatar} botDelay={botDelay} steps={steps} floating={true} opened={opened} toggleFloating={this.toggleFloating}/>
+        <ChatBot className='chat' headerTitle={headerTitle} botAvatar={botAvatar} botDelay={botDelay} steps={steps} floating={true} opened={opened} toggleFloating={this.toggleFloating} handleEnd={this.handleEnd}/>
       </ThemeProvider>
     );
   }
@@ -287,3 +276,5 @@ Chat.propTypes = {
 };
 
 export default Chat;
+
+// https://github.com/LucasBassetti/react-simple-chatbot/blob/gh-pages/app/components/docs/Tutorial.jsx
