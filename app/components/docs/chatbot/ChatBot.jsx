@@ -12,7 +12,8 @@ import End from './End';
 import Wasteman from './Wasteman';
 
 // Redirect Handlers
-import AboutRoute from '../redirectHandlers/AboutRoute'
+import TourOptionsRoute from '../redirectHandlers/TourOptions'
+import NoTourOptionsRoute from '../redirectHandlers/NoTourOptions'
 
 class Chat extends Component {
   constructor(props) {
@@ -41,34 +42,35 @@ class Chat extends Component {
             {
               id: '4',
               message: 'Would you like me to give you a tour?',
+              delay: 2000,
               trigger: 'touroptions',
             },
             {
               id: 'touroptions',
               options: [
-                { value: 1, label: 'Of course!', trigger: 'tour' },
+                { value: '/docs/aboutme', label: 'Of course!', trigger: 'tour-route' },
                 { value: 2, label: 'No.', trigger: 'no-tour' },
-                { value: '/docs/installation', label: 'Redirect testing installation.', trigger: 'tour-option-selected' },
+                { value: '/docs/fwfjweofjw', label: 'Redirect testing installation.', trigger: 'tour-option-selected' }, // TODO: Change value
                 { value: '/docs/example1', label: 'Redirect testing example1.', trigger: 'tour-option-selected' },
               ],
             },
-            {
-              id: 'tour-option-selected',
-              message: 'One moment while I redirect you',
-              trigger: 'result',
-            },
-            {
-              id: 'mobile-step',
-              message: 'Please close the chat',
-              trigger: 'result',
-            },
-            {
-              id: 'result',
-              replace: true,
-              component: (
-                <AboutRoute handleLink={this.props.handleLink}/>
-              ),
-            },
+            // {
+            //   id: 'tour-option-selected',
+            //   message: 'One moment while I redirect you',
+            //   trigger: 'result',
+            // },
+            // {
+            //   id: 'mobile-step',
+            //   message: 'Please close the chat',
+            //   trigger: 'result',
+            // },
+            // {
+            //   id: 'result',
+            //   replace: true,
+            //   component: (
+            //     <TourOptionsRoute handleLink={this.props.handleLink}/>
+            //   ),
+            // },
             {
               id: 'no-tour',
               component: <NoTour />,
@@ -78,19 +80,29 @@ class Chat extends Component {
             {
               id: 'no-tour-1',
               message: 'Is there something you would you like to learn more about me then?',
-              trigger: 'no-tour-2-options',
+              trigger: 'notouroptions',
             },
             {
-              id: 'no-tour-2-options',
+              id: 'notouroptions',
               options: [
-                { value: '/tour', label: 'I misclicked, i\'ll take the tour', trigger: 'tour' },
-                { value: '/aboutme', label: 'Who are you?', trigger: 'aboutme' },
+                { value: '/docs/aboutme', label: 'I misclicked, i\'ll take the tour', trigger: 'tour-no-route' },
+                { value: '/docs/aboutme/', label: 'Who are you?', trigger: 'aboutme' },
                 { value: '/no', label: 'Nothing, I\'m good', trigger: 'noimgood' },
                 // { value: '/portfolio/project4', label: 'Portfolio', trigger: 'portfolio' },
                 // { value: '/skills', label: 'Skills', trigger: 'skills' },
                 // { value: '/contact', label: 'Contact', trigger: 'contact' },
-                // { value: 'end', label: 'End', trigger: 'end' }
+                { value: '/goaway', label: 'Go Away', trigger: 'end' }
               ]
+            },
+            {
+              id: 'aboutme',
+              component: (
+                <NoTourOptionsRoute handleLink={this.props.handleLink}/>
+              ),
+              waitAction: true,
+              replace: true,
+              asMessage: false,
+              trigger: 'end'
             },
             {
               id: 'noimgood',
@@ -116,6 +128,7 @@ class Chat extends Component {
                 { value: '/end', label: 'That\'s a personal question.', trigger: 'end' },
               ]
             },
+
             {
               id: 'end',
               component: <End />,
@@ -143,81 +156,97 @@ class Chat extends Component {
               end: true,
             },
             {
-              id: 'aboutme-2',
-              message: 'I\'ll let you discover, come back when you\'re done!',
-              trigger: 'about-me-3'
+              id: 'tour-route',
+              component: (
+                <TourOptionsRoute handleLink={this.props.handleLink}/>
+              ),
+              waitAction: true,
+              replace: true,
+              asMessage: false,
+              trigger: 'tour1'
             },
             {
-              id: 'aboutme-3',
+              id: 'tour-no-route',
+              component: (
+                <NoTourOptionsRoute handleLink={this.props.handleLink}/>
+              ),
+              waitAction: true,
+              replace: true,
+              asMessage: false,
+              trigger: 'tour1'
+            },
+            {
+              id: 'tour1',
+              message: 'Lets see. To begin, I am recent graduate from the University of Waterloo...',
+              trigger: 'tour2'
+            },
+            {
+              id: 'tour2',
+              message: 'with a degree in Kinesiology and Pre-Health Professions.',
+              delay: 2000,
+              trigger: 'tour3'
+            },
+            {
+              id: 'tour3',
+              message: 'I know.',
+              delay: 3000,
+              trigger: 'tour4'
+            },
+            {
+              id: 'tour4',
+              message: 'It\'s completely out of scope in terms of software development and programming...',
+              delay: 2000,
+              trigger: 'tour5'
+            },
+            {
+              id: 'tour5',
+              message: 'however, I used to dabble with HTML, CSS and JavaScript by making basic Tumblr layouts and even had a anime fansite.',
+              delay: 3000,
+              trigger: 'tour6'
+            },
+            {
+              id: 'tour6',
+              message: 'I slowly got back into coding and tech through hackathons and meetups which are abundant in Waterloo\'s booming tech scene',
+              delay: 4000,
+              trigger: 'tour7'
+            },
+            {
+              id: 'tour7',
+              message: 'I realized that the possibilities were endless, and there was a very low barrier to entry.',
+              delay: 4000,
+              trigger: 'tour8'
+            },
+            {
+              id: 'tour8',
+              message: 'So during my last year at Waterloo, I decided to use my electives on Computer Science courses...',
+              delay: 3500,
+              trigger: 'tour9'
+            },
+            {
+              id: 'tour9',
+              message: 'as well as supplement my learning with online coding challenges, tutorials and videos...',
+              delay: 3500,
+              trigger: 'tour10'
+            },
+            {
+              id: 'tour10',
+              message: 'to learn as much as I can about web and mobile development',
+              delay: 3500,
+              trigger: 'tour-about-last'
+            },
+            {
+              id: 'tour-about-last',
+              message: 'You can read more about my story on the page I\'ve directed you to. When you\'re done tell me to continue.',
+              delay: 4000,
+              trigger: 'tour-about-ans'
+            },
+            {
+              id: 'tour-about-ans',
               options: [
-                { value: '/about', label: 'Story', trigger: 'story' },
-                { value: '/causes', label: 'Causes', trigger: 'causes' },
-                { value: '/portfolio/project4', label: 'Portfolio', trigger: 'portfolio' },
-                { value: '/skills', label: 'Skills', trigger: 'skills' },
-                { value: '/contact', label: 'Contact', trigger: 'contact' },
-                { value: 'end', label: 'End', trigger: 'end' }
+                { value: 'yes', label: 'Tell me more', trigger: 'tour-causes-1' },
+                { value: 'no', label: 'Shut up', trigger: 'menu' }
               ]
             },
-            {
-              id: 'tour',
-              message: 'Don\'t worry mistakes happen',
-              trigger: 'tour-1'
-            },
-            // {
-            //   id: 'tour-1',
-            //   component: <TourAbout />,
-            //   waitAction: true,
-            //   replace: true,
-            //   asMessage: false,
-            //   trigger: 'tour1'
-            // },
-            // {
-            //         id: 'tour1',
-            //         message: 'So this is my story of how I came to be a web developer',
-            //         trigger: 'tour2'
-            //       },
-            //       {
-            //         id: 'tour2',
-            //         message: 'I was a geek working on some hardware...',
-            //         trigger: 'tour3'
-            //       },
-            //       {
-            //         id: 'tour3',
-            //         message: 'trying to get these things to connect to the web aka the Internet of Things',
-            //         trigger: 'tour4'
-            //       },
-            //       {
-            //         id: 'tour4',
-            //         message: 'and I realised that there was a lot more I could do with it, like...',
-            //         trigger: 'tour5'
-            //       },
-            //       {
-            //         id: 'tour5',
-            //         message: 'using natural language processing to give commands to my bot slaves...',
-            //         trigger: 'tour6'
-            //       },
-            //       {
-            //         id: 'tour6',
-            //         message: 'or using a food image recognition algorithm to identify hot dogs',
-            //         trigger: 'tour7'
-            //       },
-            //       {
-            //         id: 'tour7',
-            //         message: 'the possibilities were endless, so I decided to quit my dream job and sign up for the GA immersive.',
-            //         trigger: 'tour-about-last'
-            //       },
-            //       {
-            //         id: 'tour-about-last',
-            //         message: 'You can read more here. Do tell me when to continue',
-            //         trigger: 'tour-about-ans'
-            //       },
-            //       {
-            //         id: 'tour-about-ans',
-            //         options: [
-            //                             { value: 'yes', label: 'Ramble on', trigger: 'tour-causes-1' },
-            //                             { value: 'no', label: 'Stop', trigger: 'menu' }
-            //         ]
-            //       },
       ],
       theme: {
         background: '#f5f8fb',

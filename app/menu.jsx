@@ -1,7 +1,8 @@
 import React from 'react';
 // Intro
-import Installation from './components/docs/pages/intro/Installation';
-import HelloWorld from './components/docs/pages/intro/HelloWorld';
+import Intro from './components/docs/pages/intro/Intro';
+import AboutMe from './components/docs/pages/intro/AboutMe';
+import Hobbies from './components/docs/pages/intro/Hobbies';
 // Examples
 import Example1 from './components/docs/pages/examples/Example1';
 import Example2 from './components/docs/pages/examples/Example2';
@@ -13,27 +14,31 @@ import Github from './components/docs/pages/others/Github';
 
 const menu = {
   title: 'Dong\s Chatbot',
-  description: '#Whynot',
-  homeLink: '/',
-  docsLink: '/docs/installation',
+  homeLink: '/docs/intro',
+  docsLink: '/docs/intro',
   github: {
     user: 'chaodonghu',
     repository: 'react-spa-boilerplate',
   },
   sections: [
     {
-      title: 'Intro',
+      title: 'About Me',
       icon: 'fa fa-arrow-right',
       links: [
         {
-          href: '/docs/installation',
-          title: 'Installation',
-          component: <Installation />,
+          href: '/docs/intro',
+          title: 'Introduction',
+          component: <Intro />,
         },
         {
-          href: '/docs/hello-world',
-          title: 'Hello World',
-          component: <HelloWorld />,
+          href: '/docs/aboutme',
+          title: 'Story',
+          component: <AboutMe />,
+        },
+        {
+          href: '/docs/hobbies',
+          title: 'Hobbies',
+          component: <Hobbies />,
         },
       ],
     },

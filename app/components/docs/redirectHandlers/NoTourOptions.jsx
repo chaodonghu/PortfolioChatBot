@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import ChatBot, { Loading } from 'react-simple-chatbot'
 const $ = require('jquery')
 
-export default class LinkHandler extends Component {
+export default class NoTourOptions extends Component {
   componentWillMount() {
     const { steps, triggerNextStep } = this.props;
-    console.log('props', this.props)
+    console.log('props in no tour options', this.props)
 
-    const link = steps.touroptions.value;
+    const link = steps.notouroptions.value;
     console.log('link', link)
     this.props.handleLink(link);
     document.querySelector('.chat .rsc-header a').click();
@@ -25,13 +25,13 @@ export default class LinkHandler extends Component {
   }
 }
 
-LinkHandler.propTypes = {
+NoTourOptions.propTypes = {
   steps: PropTypes.object,
   triggerNextStep: PropTypes.func,
   handleLink: PropTypes.func.isRequired,
 };
 
-LinkHandler.defaultProps = {
+NoTourOptions.defaultProps = {
   steps: undefined,
   triggerNextStep: undefined,
 };
