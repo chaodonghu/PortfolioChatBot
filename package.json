@@ -7,6 +7,7 @@
     "test": "./node_modules/.bin/mocha tests/**/*.spec.js --require babel-register",
     "test:watch": "./node_modules/.bin/mocha tests/**/*.spec.js --require babel-register --watch",
     "test:coverage": "nyc npm test",
+    "deploy": "gh-pages -d build",
     "build": "webpack --config webpack.config.prod.js"
   },
   "nyc": {
@@ -67,6 +68,7 @@
   },
   "dependencies": {
     "amdefine": "^1.0.1",
+    "gh-pages": "^1.0.0",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.8",

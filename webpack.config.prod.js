@@ -5,8 +5,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const precss = require('precss');
 const autoprefixer = require('autoprefixer');
 
-
-
 module.exports = {
   entry: path.resolve(__dirname, 'app/index'),
   devServer: {
@@ -24,16 +22,14 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['build']),
     new webpack.DefinePlugin({
-        'process.env':{
-          'NODE_ENV': JSON.stringify('production')
-        }
-      }),
+    'process.env':{
+      'NODE_ENV': JSON.stringify('production')
+    }
+  }),
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
-      compress:{
-        warnings: true,
-        }
-      }),
+      compress: false,
+    }),
     new CopyWebpackPlugin([
       {
         context: path.resolve(__dirname, 'app/static'),
