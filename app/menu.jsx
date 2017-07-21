@@ -23,7 +23,7 @@ const menu = {
   sections: [
     {
       title: 'About Me',
-      icon: 'fa fa-arrow-right',
+      icon: 'fa fa-id-card-o',
       links: [
         {
           href: '/docs/intro',
@@ -71,12 +71,12 @@ const menu = {
       ],
     },
     {
-      title: 'Others',
-      icon: 'fa fa-th',
+      title: 'Contact Me',
+      icon: 'fa fa-envelope-o',
       links: [
         {
           href: '/docs/contribute',
-          title: 'How to Contribute',
+          title: 'Contact me',
           component: <Contribute />,
         },
         {
